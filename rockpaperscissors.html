@@ -19,22 +19,29 @@
     <button onclick="
         playGame('scissors');
     ">Scissors</button>
+
+    <button onclick="
+        localStorage.removeItem('score');
+    ">Reset Score</button>
     
 
 
     <script>
 
-        const score = {
+    // Object
+    // Local storage
+        let score = JSON.parse(localStorage.getItem('score')) || {
             wins: 0,
             losses: 0,
             ties: 0
         };
 
+ 
+    // Function
 
         function playGame(playerMove) {
 
             const computerMove = pickComputerMove();
-
             let result = '';
 
             if (playerMove === 'scissors') {
@@ -65,7 +72,7 @@
                 }
             }
 
-
+        // Updates for the Object
 
             if(result === 'You win.') {
                 score.wins += 1;
@@ -74,6 +81,10 @@
             } else if(result === 'Tie.') {
                 score.ties += 1;
             }
+
+        // Creating local storage
+
+            localStorage.setItem('score', JSON.stringify(score));
 
 
 
@@ -95,7 +106,10 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
             }
 
             return computerMove;
-        } 
+        };
+
+
+
     </script>
     
 </body>
